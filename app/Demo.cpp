@@ -1,18 +1,24 @@
 #include <config_pc.h>
 #include <cstdlib>
+#include <structs/Sprite.h>
 #include "Demo.h"
+
+#include "IMG_TEST.h"
 
 int Demo::run()
 {
-    draw->setBgColor( 0x00, 0x00, 0x44 );
+    draw->setBgColor( 0xff, 0xff, 0xff );
+    draw->clear();
+    draw->setFramerate( 60 );
+
     while ( running )
     {
-        draw->setFgColor( RCOLOR );
-        draw->line( RWIDTH, RHEIGHT, RWIDTH, RHEIGHT );
+        draw->sprite( RWIDTH, RHEIGHT, IMG_TEST );
         draw->render();
         draw->clear();
     }
-    return 55;
+
+    return 0;
 }
 
 void Demo::setDrawer( Drawer *drawer )
