@@ -1,6 +1,8 @@
 #include <SDL2/SDL_system.h>
 #include <SDL2/SDL_timer.h>
+#include <structs/Sprite.h>
 #include "SdlDraw.h"
+
 
 SdlDraw::SdlDraw( SDL_Renderer *renderer )
 {
@@ -51,5 +53,27 @@ void SdlDraw::clear()
 void SdlDraw::render()
 {
     SDL_RenderPresent( renderer );
-    SDL_Delay( 16 );
+    SDL_Delay( this->framedelay );
+}
+
+void SdlDraw::sprite( int x, int y, const Sprite *s )
+{
+    int       c   = 0;
+    for ( int row = 0; row < s->height; row++ )
+    {
+        for ( int col = 0; col < s->width; col++ )
+        {
+            if ( s->data[ c ].r != 0xff || s->data[ c ].g != 0x00 || s->data[ c ].b != 0xff )
+            {
+                this->setFgColor( s->data[ c ].r, s->data[ c ].g, s->data[ c ].b );
+                this->point( col + x, row + y );
+            }
+            c++;
+        }
+    }
+}
+
+void SdlDraw::setFramerate( int fps )
+{
+    this->framedelay = 1000 / fps;
 }
