@@ -8,7 +8,7 @@ set(PLATFORM pc)
 
 include_directories(src/)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp src/sdl/init/init.h src/sdl/init/init.cpp src/sdl/lang.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} /usr/lib/libSDL2-2.0.so.0 /usr/lib/libSDL2_image.so)
