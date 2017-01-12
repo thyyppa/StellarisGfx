@@ -1,7 +1,5 @@
-#include <config_pc.h>
-#include <cstdlib>
-#include <structs/Sprite.h>
 #include "Demo.h"
+#include <config_pc.h>
 
 #include "IMG_TEST.h"
 

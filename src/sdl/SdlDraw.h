@@ -2,9 +2,9 @@
 #define SDLDRAW_H
 
 #include <interface/Drawer.h>
-#include <structs/Color.h>
+#include <struct/Color.h>
 #include <config_pc.h>
-#include <structs/Sprite.h>
+#include <struct/Sprite.h>
 
 class SdlDraw : public Drawer {
 public:

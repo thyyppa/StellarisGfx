@@ -1,6 +1,6 @@
 #include <SDL2/SDL_system.h>
 #include <SDL2/SDL_timer.h>
-#include <structs/Sprite.h>
+#include <struct/Sprite.h>
 #include "SdlDraw.h"
 
 

@@ -52,6 +52,12 @@ int main( int argc, char *argv[] )
     return 0;
 }
 
+/**
+ * Grabs the filename without extension of the image,
+ * capitalizes it, and prepends "IMG_"
+ * @param filename
+ * @return
+ */
 std::string getFilename( std::string filename )
 {
     int dot   = filename.find_last_of( "." );

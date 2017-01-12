@@ -2,7 +2,7 @@
 #define DRAWER_H
 
 #include <SDL2/SDL_system.h>
-#include "structs/Sprite.h"
+#include "struct/Sprite.h"
 
 class Drawer {
 public:
