@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "sdl/init/en.h"
+#include "sdl/lang.h"
 
 bool init_sdl();
 SDL_Renderer *createRenderer( SDL_Window *window );
