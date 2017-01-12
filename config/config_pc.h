@@ -7,4 +7,8 @@
 #define HEIGHT 131
 #define SCALE 4
 
+#define RWIDTH rand() % WIDTH
+#define RHEIGHT rand() % HEIGHT
+#define RCOLOR rand() % 0xff, rand() % 0xff, rand() % 0xff
+
 #endif //CONFIG_PC_H

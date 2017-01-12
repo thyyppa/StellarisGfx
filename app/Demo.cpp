@@ -7,8 +7,8 @@ int Demo::run()
     draw->setBgColor( 0x00, 0x00, 0x44 );
     while ( running )
     {
-        draw->setFgColor( rand() % 0xff, rand() % 0xff, rand() % 0xff );
-        draw->line( rand() % WIDTH, rand() % HEIGHT, rand() % WIDTH, rand() % HEIGHT );
+        draw->setFgColor( RCOLOR );
+        draw->line( RWIDTH, RHEIGHT, RWIDTH, RHEIGHT );
         draw->render();
         draw->clear();
     }
