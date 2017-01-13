@@ -18,7 +18,5 @@ target_link_libraries(${PROJECT_NAME} /usr/lib/libSDL2-2.0.so.0 /usr/lib/libSDL2
 find_package (Threads)
 find_package (X11 REQUIRED)
 find_package (String)
-#find_package (PNG)
-#add_definitions(-Dcimg_use_png)
 add_executable(PngToSprite util/PngToSprite.cpp )
 target_link_libraries(PngToSprite ${CMAKE_THREAD_LIBS_INIT} ${X11_LIBRARIES})
