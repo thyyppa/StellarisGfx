@@ -1,8 +1,13 @@
+#include <cstdio>
+#include <string>
+#include "CImg.h"
+
 using namespace cimg_library;
 
 struct Color {
     int r, g, b;
 };
+
 
 struct Sprite {
 public:
@@ -28,7 +33,7 @@ int main( int argc, char *argv[] )
 
     fprintf( output, "#ifndef %s_H\n", filename.c_str());
     fprintf( output, "#define %s_H\n\n", filename.c_str());
-    fprintf( output, "const Sprite %s [3] = { %d, %d,\n{", filename.c_str(), img.width(), img.height());
+    fprintf( output, "const Sprite %s [3] = { \n    %d, // width\n    %d, // height\n    {   // image data\n    ", filename.c_str(), img.width(), img.height());
 
     for ( int y = 0; y < img.height(); y++ )
     {
@@ -37,16 +42,17 @@ int main( int argc, char *argv[] )
             r = img( x, y, 0, 0 );
             g = img( x, y, 0, 1 );
             b = img( x, y, 0, 2 );
-            fprintf( output, "{%#02x,%#02x,%#02x}", r, g, b );
+            fprintf( output, "{0x%02x,0x%02x,0x%02x}", r, g, b );
             if ( total > ++c )
             {
                 fprintf( output, "," );
+
             }
         }
-        fprintf( output, "\n" );
+        fprintf( output, "\n    " );
     }
 
-    fprintf( output, "}};\n\n" );
+    fprintf( output, "}\n};\n\n" );
     fprintf( output, "#endif\n" );
     fclose( output );
     return 0;
