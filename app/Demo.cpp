@@ -27,10 +27,10 @@ int Demo::run()
         draw->string( "1234567890", 0, 40, &lg_font );
         draw->untransform();
 
-        draw->setFgColor(0xAA,0xAA,0xff);
+        draw->setFgColor( 0xAA, 0xAA, 0xff );
         draw->button( "light", 10, 65, &lg_font );
 
-        draw->setFgColor(0x22,0x00,0x00);
+        draw->setFgColor( 0x22, 0x00, 0x00 );
         draw->button( "dark", 10, 87, &lg_font );
 
         draw->transform( 0, 111 );
