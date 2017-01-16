@@ -13,6 +13,8 @@ public:
     void point( int x, int y ) override;
     void line( int x0, int y0, int x1, int y1 ) override;
     void setFgColor( int r, int g, int b ) override;
+    void offset( int x, int y ) override;
+    void unoffset() override;
     void setFramerate( int fps ) override;
     void sprite( int x, int y, Sprite *s ) override;
     void render() override;
@@ -22,6 +24,9 @@ public:
     void fill( int x0, int y0, int x1, int y1 ) override;
     void string( char *string, int x, int y, Typeface *font ) override;
     void glyph( char *glyph, int x, int y, Typeface *font ) override;
+protected:
+    int localx = 0;
+    int localy = 0;
 };
 
 #endif //SDLDRAW_H

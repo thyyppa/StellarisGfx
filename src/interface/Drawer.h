@@ -19,6 +19,8 @@ public:
     virtual void glyph( char *glyph, int x, int y, Typeface *font ) = 0;
     virtual void render() = 0;
     virtual void clear() = 0;
+    virtual void offset( int x, int y ) = 0;
+    virtual void unoffset() = 0;
     virtual void setFramerate( int fps ) = 0;
 
 protected:
