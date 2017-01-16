@@ -19,8 +19,8 @@ public:
     virtual void glyph( char *glyph, int x, int y, Typeface *font ) = 0;
     virtual void render() = 0;
     virtual void clear() = 0;
-    virtual void offset( int x, int y ) = 0;
-    virtual void unoffset() = 0;
+    virtual void transform( int x, int y ) = 0;
+    virtual void untransform() = 0;
     virtual void setFramerate( int fps ) = 0;
 
 protected:
@@ -28,6 +28,8 @@ protected:
     int          framedelay = 16;
     Color        fg{ 0xff, 0xff, 0xff };
     Color        bg{ 0x00, 0x00, 0x00 };
+    int          transformx = 0;
+    int          transformy = 0;
 };
 
 #endif //DRAWER_H

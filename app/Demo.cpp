@@ -15,7 +15,7 @@ int Demo::run()
         draw->clear();
         draw->setFgColor( 0x00, 0x00, 0x00 );
 
-        draw->offset( 10, 10 );
+        draw->transform( 10, 10 );
         snprintf( strbuff, sizeof( strbuff ), "number:%i", rand() % 100000 );
         draw->string( strbuff, 0, 0, &lg_font );
 
@@ -25,18 +25,18 @@ int Demo::run()
         draw->string( "help", 0, 20, &lg_font );
         draw->string( "cancel", 0, 30, &lg_font );
         draw->string( "1234567890", 0, 40, &lg_font );
-        draw->unoffset();
+        draw->untransform();
 
-        draw->offset( 0, 111 );
+        draw->transform( 0, 111 );
         draw->setFgColor( 0x66, 0x66, 0x66 );
         draw->fill( 0, 0, WIDTH, 20 );
         draw->setFgColor( 0x88, 0x88, 0x88 );
-        draw->fill( 90, 0, WIDTH, 20 );
+        draw->fill( 90, 0, WIDTH-90, 20 );
         draw->setFgColor( 0xff, 0xff, 0xff );
         draw->string( "menu", 97, 5, &lg_font );
         draw->setFgColor( 0x33, 0x33, 0x33 );
-        draw->box( -1, 0, WIDTH + 2, 30 );
-        draw->unoffset();
+        draw->box( -1, 0, WIDTH + 2, 20 );
+        draw->untransform();
 
         draw->render();
 

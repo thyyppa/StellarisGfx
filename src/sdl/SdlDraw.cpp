@@ -11,23 +11,23 @@ SdlDraw::SdlDraw( SDL_Renderer *renderer )
 
 void SdlDraw::point( int x, int y )
 {
-    SDL_RenderDrawPoint( renderer, x + localx, y + localy );
+    SDL_RenderDrawPoint( renderer, x + transformx, y + transformy );
 }
 
 void SdlDraw::line( int x0, int y0, int x1, int y1 )
 {
-    SDL_RenderDrawLine( renderer, x0 + localx, y0 + localy, x1 + localx, y1 + localy );
+    SDL_RenderDrawLine( renderer, x0 + transformx, y0 + transformy, x1 + transformx, y1 + transformy );
 }
 
 void SdlDraw::box( int x0, int y0, int x1, int y1 )
 {
-    SDL_Rect box{  x0 + localx, y0 + localy, x1, y1 };
+    SDL_Rect box{  x0 + transformx, y0 + transformy, x1, y1 };
     SDL_RenderDrawRect( renderer, &box );
 }
 
 void SdlDraw::fill( int x0, int y0, int x1, int y1 )
 {
-    SDL_Rect box{  x0 + localx, y0 + localy, x1, y1 };
+    SDL_Rect box{  x0 + transformx, y0 + transformy, x1, y1 };
     SDL_RenderFillRect( renderer, &box );
 }
 
@@ -109,14 +109,14 @@ void SdlDraw::glyph( char *glyph, int xoffset, int yoffset, Typeface *font )
     }
 }
 
-void SdlDraw::offset( int x, int y )
+void SdlDraw::transform( int x, int y )
 {
-    this->localx = x;
-    this->localy = y;
+    this->transformx = x;
+    this->transformy = y;
 }
 
-void SdlDraw::unoffset()
+void SdlDraw::untransform()
 {
-    this->localx = 0;
-    this->localy = 0;
+    this->transformx = 0;
+    this->transformy = 0;
 }
