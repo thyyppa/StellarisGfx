@@ -21,13 +21,13 @@ void SdlDraw::line( int x0, int y0, int x1, int y1 )
 
 void SdlDraw::box( int x0, int y0, int x1, int y1 )
 {
-    SDL_Rect box{  x0 + transformx, y0 + transformy, x1, y1 };
+    SDL_Rect box{ x0 + transformx, y0 + transformy, x1, y1 };
     SDL_RenderDrawRect( renderer, &box );
 }
 
 void SdlDraw::fill( int x0, int y0, int x1, int y1 )
 {
-    SDL_Rect box{  x0 + transformx, y0 + transformy, x1, y1 };
+    SDL_Rect box{ x0 + transformx, y0 + transformy, x1, y1 };
     SDL_RenderFillRect( renderer, &box );
 }
 
@@ -119,4 +119,26 @@ void SdlDraw::untransform()
 {
     this->transformx = 0;
     this->transformy = 0;
+}
+
+void SdlDraw::button( char *label, int x, int y, Typeface *font )
+{
+    Color saveFg = fg;
+    Color border = { fg.r * 0.15, fg.g * 0.15, fg.b * 0.15 };
+
+    transform( x, y );
+    fill( 0, 0, ( strlen( label ) * font->charWidth ) + 10, font->charHeight + 8 );
+
+    setFgColor( border.r, border.g, border.b );
+    if (( saveFg.r + saveFg.g + saveFg.b ) / 3 < 40 )
+    {
+        setFgColor( 0xff, 0xff, 0xff );
+    }
+    string( label, 4, 4, font );
+
+    setFgColor( border.r, border.g, border.b );
+    box( 0, 0, ( strlen( label ) * font->charWidth ) + 10, font->charHeight + 8 );
+    untransform();
+
+    setFgColor( saveFg.r, saveFg.g, saveFg.b );
 }

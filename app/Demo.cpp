@@ -27,11 +27,17 @@ int Demo::run()
         draw->string( "1234567890", 0, 40, &lg_font );
         draw->untransform();
 
+        draw->setFgColor(0xAA,0xAA,0xff);
+        draw->button( "light", 10, 65, &lg_font );
+
+        draw->setFgColor(0x22,0x00,0x00);
+        draw->button( "dark", 10, 87, &lg_font );
+
         draw->transform( 0, 111 );
         draw->setFgColor( 0x66, 0x66, 0x66 );
         draw->fill( 0, 0, WIDTH, 20 );
         draw->setFgColor( 0x88, 0x88, 0x88 );
-        draw->fill( 90, 0, WIDTH-90, 20 );
+        draw->fill( 90, 0, WIDTH - 90, 20 );
         draw->setFgColor( 0xff, 0xff, 0xff );
         draw->string( "menu", 97, 5, &lg_font );
         draw->setFgColor( 0x33, 0x33, 0x33 );
