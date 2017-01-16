@@ -1,7 +1,6 @@
-#include <SDL2/SDL_system.h>
-#include <SDL2/SDL_timer.h>
 #include <struct/Sprite.h>
 #include <struct/Typeface.h>
+#include <SDL2/SDL_timer.h>
 #include "SdlDraw.h"
 
 
@@ -80,41 +79,32 @@ void SdlDraw::sprite( int x, int y, Sprite *s )
     s->data = buffer;
 }
 
-//void SdlDraw::sprite( int x, int y, const Sprite *s )
-//{
-//    int       c   = 0;
-//    for ( int row = 0; row < s->height; row++ )
-//    {
-//        for ( int col = 0; col < s->width; col++ )
-//        {
-//            if ( s->data[ c ].r != 0xff || s->data[ c ].g != 0x00 || s->data[ c ].b != 0xff )
-//            {
-//                this->setFgColor( s->data[ c ].r, s->data[ c ].g, s->data[ c ].b );
-//                this->point( col + x, row + y );
-//            }
-//            c++;
-//        }
-//    }
-//}
-
 void SdlDraw::setFramerate( int fps )
 {
     this->framedelay = 1000 / fps;
 }
 
-void SdlDraw::glyph( int x, int y, int offset, Typeface *font )
+void SdlDraw::glyph( char *glyph, int xoffset, int yoffset, Typeface *font )
 {
-    font->getGlyph( offset );
-
-    for ( int row = 0; row < font->charWidth; row++ )
-        for ( int col = 0; col < font->charHeight; col++ )
+    for ( int y = 0; y < 5; y++ )
+    {
+        for ( int x = 0; x < 3; x++ )
         {
+            if ( font->pixelSet( glyph[ 0 ], x, y ))
             {
-                if ( font->glyph[ row ][ col ] )
-                {
-                    this->point( col, row );
-                }
+                this->point( font->charWidth - x + xoffset, font->charHeight - y + yoffset );
             }
         }
+    }
+}
 
+void SdlDraw::string( char *string, int x, int y, Typeface *font )
+{
+    int offset = 0;
+
+    for ( int i = 0; i < strlen( string ); i++ )
+    {
+        offset = i * ( font->charWidth + font->kerning());
+        glyph( &string[ i ], x + offset, y, font );
+    }
 }

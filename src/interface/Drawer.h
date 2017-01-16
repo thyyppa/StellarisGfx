@@ -15,7 +15,8 @@ public:
     virtual void box( int x0, int y0, int x1, int y1 ) = 0;
     virtual void fill( int x0, int y0, int x1, int y1 ) = 0;
     virtual void sprite( int x, int y, Sprite *s ) = 0;
-    virtual void glyph( int x, int y, int offset, Typeface *font ) = 0;
+    virtual void string( char *string, int x, int y, Typeface *font ) = 0;
+    virtual void glyph( char *glyph, int x, int y, Typeface *font ) = 0;
     virtual void render() = 0;
     virtual void clear() = 0;
     virtual void setFramerate( int fps ) = 0;
