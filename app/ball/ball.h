@@ -1,6 +1,8 @@
 #ifndef BALL_H
 #define BALL_H
 
+#include <cmath>
+
 struct Rect {
     int x;
     int y;

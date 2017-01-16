@@ -20,11 +20,12 @@ public:
     void render() override;
     void setBgColor( int r, int g, int b ) override;
     void clear() override;
-    void box( int x0, int y0, int x1, int y1 ) override;
-    void fill( int x0, int y0, int x1, int y1 ) override;
-    void string( char *string, int x, int y, Typeface *font ) override;
-    void glyph( char *glyph, int x, int y, Typeface *font ) override;
-    void button( char *label, int x, int y, Typeface *font ) override;
+    void box( int x, int y, int w, int h ) override;
+    void fill( int x, int y, int w, int h ) override;
+    void string( char *string, int x, int y) override;
+    void setFont( Typeface *font ) override;
+    void glyph( char *glyph, int x, int y) override;
+    void button( char *label, int x, int y) override;
 };
 
 #endif //SDLDRAW_H

@@ -4,20 +4,20 @@
 #include <vector>
 
 struct Typeface {
-    unsigned char charWidth;
-    unsigned char charHeight;
+    unsigned char glyphWidth;
+    unsigned char glyphHeight;
 
     std::vector<unsigned char> data;
 
     unsigned char kerning()
     {
-        return charWidth * 0.1;
+        return glyphWidth * 0.1;
     }
 
-    bool pixelSet( char ascii, int x, int y )
+    bool pixelIsSet( char ascii, int x, int y )
     {
-        int offset = getIndex( ascii ) * charHeight;
-        return data[ offset + y ] & ( 1 << x + ( 8 - charWidth ));
+        int offset = getIndex( ascii ) * glyphHeight;
+        return data[ offset + y ] & ( 1 << x + ( 8 - glyphWidth ));
     }
 
     unsigned char getIndex( char i )
