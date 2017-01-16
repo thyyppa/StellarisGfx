@@ -1,6 +1,6 @@
-#include <SDL2/SDL_system.h>
-#include <SDL2/SDL_timer.h>
 #include <struct/Sprite.h>
+#include <struct/Typeface.h>
+#include <SDL2/SDL_timer.h>
 #include "SdlDraw.h"
 
 
@@ -11,23 +11,23 @@ SdlDraw::SdlDraw( SDL_Renderer *renderer )
 
 void SdlDraw::point( int x, int y )
 {
-    SDL_RenderDrawPoint( renderer, x, y );
+    SDL_RenderDrawPoint( renderer, x + transformx, y + transformy );
 }
 
 void SdlDraw::line( int x0, int y0, int x1, int y1 )
 {
-    SDL_RenderDrawLine( renderer, x0, y0, x1, y1 );
+    SDL_RenderDrawLine( renderer, x0 + transformx, y0 + transformy, x1 + transformx, y1 + transformy );
 }
 
 void SdlDraw::box( int x0, int y0, int x1, int y1 )
 {
-    SDL_Rect box{ x0, y0, x1, y1 };
+    SDL_Rect box{ x0 + transformx, y0 + transformy, x1, y1 };
     SDL_RenderDrawRect( renderer, &box );
 }
 
 void SdlDraw::fill( int x0, int y0, int x1, int y1 )
 {
-    SDL_Rect box{ x0, y0, x1, y1 };
+    SDL_Rect box{ x0 + transformx, y0 + transformy, x1, y1 };
     SDL_RenderFillRect( renderer, &box );
 }
 
@@ -56,24 +56,89 @@ void SdlDraw::render()
     SDL_Delay( this->framedelay );
 }
 
-void SdlDraw::sprite( int x, int y, const Sprite *s )
+void SdlDraw::sprite( int x, int y, Sprite *s )
 {
-    int       c   = 0;
-    for ( int row = 0; row < s->height; row++ )
+    unsigned char pixel[3];
+    char          *buffer = s->data;
+    for ( int     row     = 0; row < s->width; row++ )
     {
-        for ( int col = 0; col < s->width; col++ )
+        for ( int col = 0; col < s->height; col++ )
         {
-            if ( s->data[ c ].r != 0xff || s->data[ c ].g != 0x00 || s->data[ c ].b != 0xff )
+            pixel[ 0 ] = ((( s->data[ 0 ] - 33 ) << 2 ) | (( s->data[ 1 ] - 33 ) >> 4 ));
+            pixel[ 1 ] = (((( s->data[ 1 ] - 33 ) & 0xF ) << 4 ) | (( s->data[ 2 ] - 33 ) >> 2 ));
+            pixel[ 2 ] = (((( s->data[ 2 ] - 33 ) & 0x3 ) << 6 ) | (( s->data[ 3 ] - 33 )));
+            s->data += 4;
+
+            if ( pixel[ 0 ] != 0xff || pixel[ 1 ] != 0x00 || pixel[ 2 ] != 0xff )
             {
-                this->setFgColor( s->data[ c ].r, s->data[ c ].g, s->data[ c ].b );
+                this->setFgColor( pixel[ 0 ], pixel[ 1 ], pixel[ 1 ] );
                 this->point( col + x, row + y );
             }
-            c++;
         }
     }
+    s->data = buffer;
 }
 
 void SdlDraw::setFramerate( int fps )
 {
     this->framedelay = 1000 / fps;
+}
+
+void SdlDraw::string( char *string, int x, int y, Typeface *font )
+{
+    int offset = 0;
+
+    for ( int i = 0; i < strlen( string ); i++ )
+    {
+        offset = i * ( font->charWidth + font->kerning());
+        glyph( &string[ i ], x + offset, y, font );
+    }
+}
+
+void SdlDraw::glyph( char *glyph, int xoffset, int yoffset, Typeface *font )
+{
+    for ( int y = 0; y < font->charHeight; y++ )
+    {
+        for ( int x = 0; x < font->charWidth; x++ )
+        {
+            if ( font->pixelSet( glyph[ 0 ], x, y ))
+            {
+                this->point( font->charWidth - x + xoffset, y + yoffset );
+            }
+        }
+    }
+}
+
+void SdlDraw::transform( int x, int y )
+{
+    this->transformx = x;
+    this->transformy = y;
+}
+
+void SdlDraw::untransform()
+{
+    this->transformx = 0;
+    this->transformy = 0;
+}
+
+void SdlDraw::button( char *label, int x, int y, Typeface *font )
+{
+    Color saveFg = fg;
+    Color border = { fg.r * 0.15, fg.g * 0.15, fg.b * 0.15 };
+
+    transform( x, y );
+    fill( 0, 0, ( strlen( label ) * font->charWidth ) + 10, font->charHeight + 8 );
+
+    setFgColor( border.r, border.g, border.b );
+    if (( saveFg.r + saveFg.g + saveFg.b ) / 3 < 40 )
+    {
+        setFgColor( 0xff, 0xff, 0xff );
+    }
+    string( label, 4, 4, font );
+
+    setFgColor( border.r, border.g, border.b );
+    box( 0, 0, ( strlen( label ) * font->charWidth ) + 10, font->charHeight + 8 );
+    untransform();
+
+    setFgColor( saveFg.r, saveFg.g, saveFg.b );
 }

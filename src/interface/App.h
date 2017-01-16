@@ -7,6 +7,7 @@ class App {
 public:
     virtual void setDrawer( Drawer *drawer ) = 0;
     virtual int run() = 0;
+    bool running = true;
 };
 
 #endif //APP_H

@@ -14,7 +14,7 @@ SDL_Renderer *createRenderer( SDL_Window *window )
 SDL_Window *createWindow( int width, int height )
 {
     SDL_Window *window = SDL_CreateWindow(
-            "Physics 1",
+            "StellarisGfx",
             SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
             width,
