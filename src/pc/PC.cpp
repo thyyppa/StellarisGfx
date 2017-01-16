@@ -12,8 +12,8 @@ int PC::boot()
     window   = createWindow( WIDTH, HEIGHT );
     renderer = createRenderer( window );
 
-    Demo    app;
-    SdlDraw drawer( renderer );
+    Demo     app;
+    SdlDraw  drawer( renderer );
     app.setDrawer( &drawer );
 
     return app.run();

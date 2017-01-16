@@ -1,0 +1,10 @@
+Sprite img_ball{
+        10, 10,
+        "`Q$``Q$``Q$`(R]@(RY@(BY?(BY?`Q$``Q$``Q$``Q$`)#!A(R]@(BY?Y/(BX.T="
+                "(\"Q=(\"Q=(\"Q=`Q$``Q$`(R]@ZO8FX^`AWNH;V.45U.$1T-X-'BI;`Q$`(R]@(BY?"
+                "X^`@W.H:UN,3T-T-R]@)Q]4%'2E:'2E:(R]@YO,CW>L;UN03T-P,R=8&P\\_`O\\O["
+                "N\\?X'\"A9(BY?X>X>V.45T-T.R=8&PL[_N\\CYM\\+TL[_P&R=8(BY?(\"U>U.(2S-D*"
+                "Q-$!O,CYM<'RK[KL&B97&256`Q$`(\"Q=T=\\/R-8&P,S\\N,3TL+OLI[3E&256`Q$`"
+                "`Q$`(\"Q='RM<'2E:O<KZM<#Q&B97&256&\"15`Q$``Q$``Q$``Q$`'2E:'\"A9&R=8"
+                "&B97`Q$``Q$``Q$`"
+};
