@@ -1,3 +1,5 @@
+#include <struct/Sprite.h>
+
 Sprite img_ball{
         10, 10,
         "`Q$``Q$``Q$`(R]@(RY@(BY?(BY?`Q$``Q$``Q$``Q$`)#!A(R]@(BY?Y/(BX.T="
