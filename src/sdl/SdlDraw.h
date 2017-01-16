@@ -5,7 +5,7 @@
 #include <struct/Color.h>
 #include <config_pc.h>
 #include <struct/Sprite.h>
-#include <struct/Typefaceold.h>
+#include <struct/Typeface.h>
 
 class SdlDraw : public Drawer {
 public:

@@ -1,5 +1,6 @@
+#include <text/lgfont.font>
 #include "Demo.h"
-#include "text/tinyfont.font"
+#include "text/lgfont.font"
 
 int Demo::run()
 {
@@ -12,18 +13,22 @@ int Demo::run()
     while ( running )
     {
         draw->clear();
-
         draw->setFgColor( 0x00, 0x00, 0x00 );
 
-        snprintf( strbuff, sizeof( strbuff ), "random number: %i", rand() % 10000 );
-        draw->string( strbuff, 10, 10, &tinyfont );
+        snprintf( strbuff, sizeof( strbuff ), "number:%i", rand() % 100000 );
+        draw->string( strbuff, 5, 10, &lg_font );
 
-        snprintf( strbuff, sizeof( strbuff ), "random letter: %c", rand() % 26 + 65 );
-        draw->string( strbuff, 10, 20, &tinyfont );
+        snprintf( strbuff, sizeof( strbuff ), "letter:%c", rand() % 26 + 65 );
+        draw->string( strbuff, 5, 20, &lg_font );
 
-        draw->string( "cancel", 10, 30, &tinyfont );
-        draw->string( "help", 10, 40, &tinyfont );
-        draw->string( "quit", 10, 50, &tinyfont );
+        draw->string( "cancel", 5, 30, &lg_font );
+        draw->string( "help", 5, 40, &lg_font );
+        draw->string( "1234567890", 5, 50, &lg_font );
+
+        draw->setFgColor( 0x88, 0x00, 0x00 );
+        draw->string( "Quit", 5, 115, &lg_font );
+        draw->setFgColor( 0x00, 0x00, 0x88 );
+        draw->string( "Okay", 97, 115, &lg_font );
 
         draw->render();
 

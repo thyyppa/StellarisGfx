@@ -7,37 +7,46 @@ struct Typeface {
     unsigned char charWidth;
     unsigned char charHeight;
 
-    std::vector<unsigned int> data;
-
-    unsigned char count()
-    {
-        return data.size();
-    }
+    std::vector<unsigned char> data;
 
     unsigned char kerning()
     {
-        return charWidth * 0.5;
+        return charWidth * 0.1;
     }
 
     bool pixelSet( char ascii, int x, int y )
     {
-        int pixel = ( y * charWidth ) + x;
-        return data[ getIndex( ascii ) ] & ( 1 << pixel );
+        int offset = getIndex( ascii ) * charHeight;
+        return data[ offset + y ] & ( 1 << x + ( 8 - charWidth ));
     }
 
     unsigned char getIndex( char i )
     {
+        if ( 'A' <= i && i <= 'Z' )
+        {
+            return i - 65 + 26;
+        }
         if ( 'a' <= i && i <= 'z' )
         {
-            return i - 'a';
-        } else if ( 'A' <= i && i <= 'Z' )
-        {
-            return i - 'A';
-        } else if ( '0' <= i && i <= '9' )
-        {
-            return 25 + i - '0';
+            return i - 97;
         }
-        return 36;
+        if ( '1' <= i && i <= '9' )
+        {
+            return i - 48 + 77;
+        }
+        if ( '!' <= i && i <= '+' )
+        {
+            return i - 33 + 53;
+        }
+        if ( i == '0' )
+        {
+            return i - 48 + 87;
+        }
+        if ( i == ':' )
+        {
+            return 72;
+        }
+        return 103;
     }
 };
 

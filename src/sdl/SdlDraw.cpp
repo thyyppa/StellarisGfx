@@ -84,20 +84,6 @@ void SdlDraw::setFramerate( int fps )
     this->framedelay = 1000 / fps;
 }
 
-void SdlDraw::glyph( char *glyph, int xoffset, int yoffset, Typeface *font )
-{
-    for ( int y = 0; y < 5; y++ )
-    {
-        for ( int x = 0; x < 3; x++ )
-        {
-            if ( font->pixelSet( glyph[ 0 ], x, y ))
-            {
-                this->point( font->charWidth - x + xoffset, font->charHeight - y + yoffset );
-            }
-        }
-    }
-}
-
 void SdlDraw::string( char *string, int x, int y, Typeface *font )
 {
     int offset = 0;
@@ -106,5 +92,19 @@ void SdlDraw::string( char *string, int x, int y, Typeface *font )
     {
         offset = i * ( font->charWidth + font->kerning());
         glyph( &string[ i ], x + offset, y, font );
+    }
+}
+
+void SdlDraw::glyph( char *glyph, int xoffset, int yoffset, Typeface *font )
+{
+    for ( int y = 0; y < font->charHeight; y++ )
+    {
+        for ( int x = 0; x < font->charWidth; x++ )
+        {
+            if ( font->pixelSet( glyph[ 0 ], x, y ))
+            {
+                this->point( font->charWidth - x + xoffset, y + yoffset );
+            }
+        }
     }
 }
