@@ -19,15 +19,15 @@ void SdlDraw::line( int x0, int y0, int x1, int y1 )
     SDL_RenderDrawLine( renderer, x0 + transformx, y0 + transformy, x1 + transformx, y1 + transformy );
 }
 
-void SdlDraw::box( int x0, int y0, int x1, int y1 )
+void SdlDraw::box( int x, int y, int w, int h )
 {
-    SDL_Rect box{ x0 + transformx, y0 + transformy, x1, y1 };
+    SDL_Rect box{ x + transformx, y + transformy, w, h };
     SDL_RenderDrawRect( renderer, &box );
 }
 
-void SdlDraw::fill( int x0, int y0, int x1, int y1 )
+void SdlDraw::fill( int x, int y, int w, int h )
 {
-    SDL_Rect box{ x0 + transformx, y0 + transformy, x1, y1 };
+    SDL_Rect box{ x + transformx, y + transformy, w, h };
     SDL_RenderFillRect( renderer, &box );
 }
 
@@ -84,26 +84,26 @@ void SdlDraw::setFramerate( int fps )
     this->framedelay = 1000 / fps;
 }
 
-void SdlDraw::string( char *string, int x, int y, Typeface *font )
+void SdlDraw::string( char *string, int x, int y )
 {
     int offset = 0;
 
     for ( int i = 0; i < strlen( string ); i++ )
     {
-        offset = i * ( font->charWidth + font->kerning());
-        glyph( &string[ i ], x + offset, y, font );
+        offset = i * ( font->glyphWidth + font->kerning());
+        glyph( &string[ i ], x + offset, y );
     }
 }
 
-void SdlDraw::glyph( char *glyph, int xoffset, int yoffset, Typeface *font )
+void SdlDraw::glyph( char *glyph, int x, int y )
 {
-    for ( int y = 0; y < font->charHeight; y++ )
+    for ( int row = 0; row < font->glyphHeight; row++ )
     {
-        for ( int x = 0; x < font->charWidth; x++ )
+        for ( int col = 0; col < font->glyphWidth; col++ )
         {
-            if ( font->pixelSet( glyph[ 0 ], x, y ))
+            if ( font->pixelIsSet( glyph[ 0 ], col, row ))
             {
-                this->point( font->charWidth - x + xoffset, y + yoffset );
+                this->point( font->glyphWidth - col + x, row + y );
             }
         }
     }
@@ -121,24 +121,29 @@ void SdlDraw::untransform()
     this->transformy = 0;
 }
 
-void SdlDraw::button( char *label, int x, int y, Typeface *font )
+void SdlDraw::button( char *label, int x, int y )
 {
     Color saveFg = fg;
     Color border = { fg.r * 0.15, fg.g * 0.15, fg.b * 0.15 };
 
     transform( x, y );
-    fill( 0, 0, ( strlen( label ) * font->charWidth ) + 10, font->charHeight + 8 );
+    fill( 0, 0, ( strlen( label ) * font->glyphWidth ) + 10, font->glyphHeight + 8 );
 
     setFgColor( border.r, border.g, border.b );
     if (( saveFg.r + saveFg.g + saveFg.b ) / 3 < 40 )
     {
         setFgColor( 0xff, 0xff, 0xff );
     }
-    string( label, 4, 4, font );
+    string( label, 4, 4 );
 
     setFgColor( border.r, border.g, border.b );
-    box( 0, 0, ( strlen( label ) * font->charWidth ) + 10, font->charHeight + 8 );
+    box( 0, 0, ( strlen( label ) * font->glyphWidth ) + 10, font->glyphHeight + 8 );
     untransform();
 
     setFgColor( saveFg.r, saveFg.g, saveFg.b );
+}
+
+void SdlDraw::setFont( Typeface *font )
+{
+    this->font = font;
 }

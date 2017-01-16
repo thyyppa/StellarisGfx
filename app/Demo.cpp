@@ -14,24 +14,25 @@ int Demo::run()
     {
         draw->clear();
         draw->setFgColor( 0x00, 0x00, 0x00 );
+        draw->setFont( &lg_font );
 
         draw->transform( 10, 10 );
         snprintf( strbuff, sizeof( strbuff ), "number:%i", rand() % 100000 );
-        draw->string( strbuff, 0, 0, &lg_font );
+        draw->string( strbuff, 0, 0 );
 
         snprintf( strbuff, sizeof( strbuff ), "letter:%c", rand() % 26 + 65 );
-        draw->string( strbuff, 0, 10, &lg_font );
+        draw->string( strbuff, 0, 10 );
 
-        draw->string( "help", 0, 20, &lg_font );
-        draw->string( "cancel", 0, 30, &lg_font );
-        draw->string( "1234567890", 0, 40, &lg_font );
+        draw->string( "help", 0, 20 );
+        draw->string( "cancel", 0, 30 );
+        draw->string( "1234567890", 0, 40 );
         draw->untransform();
 
         draw->setFgColor( 0xAA, 0xAA, 0xff );
-        draw->button( "light", 10, 65, &lg_font );
+        draw->button( "light", 10, 65 );
 
         draw->setFgColor( 0x22, 0x00, 0x00 );
-        draw->button( "dark", 10, 87, &lg_font );
+        draw->button( "dark", 10, 87 );
 
         draw->transform( 0, 111 );
         draw->setFgColor( 0x66, 0x66, 0x66 );
@@ -39,7 +40,7 @@ int Demo::run()
         draw->setFgColor( 0x88, 0x88, 0x88 );
         draw->fill( 90, 0, WIDTH - 90, 20 );
         draw->setFgColor( 0xff, 0xff, 0xff );
-        draw->string( "menu", 97, 5, &lg_font );
+        draw->string( "menu", 97, 5 );
         draw->setFgColor( 0x33, 0x33, 0x33 );
         draw->box( -1, 0, WIDTH + 2, 20 );
         draw->untransform();
