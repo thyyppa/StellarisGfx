@@ -2,6 +2,7 @@
 #define DEMO_H
 
 #include <interface/App.h>
+#include <SDL2/SDL_events.h>
 
 class Demo : public App {
 public:
@@ -10,6 +11,7 @@ public:
 protected:
     Drawer *draw;
     bool   running = true;
+    void handleEvents( SDL_Event &e );
 };
 
 
